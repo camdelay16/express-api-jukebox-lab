@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import TrackList from "./components/TrackList";
 import TrackForm from "./components/TrackForm";
 import TrackDetail from "./components/TrackDetail";
+import NowPlaying from "./components/NowPlaying";
 import * as trackService from "./services/trackService";
 
 const App = () => {
   const [trackList, setTrackList] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
 
   useEffect(() => {
     const getTracks = async () => {
@@ -24,6 +26,10 @@ const App = () => {
     };
     getTracks();
   }, []);
+
+  const handlePlayTrack = (track) => {
+    setCurrentTrack(track);
+  };
 
   const updateSelected = (track) => {
     setSelected(track);
@@ -81,6 +87,7 @@ const App = () => {
         trackList={trackList}
         updateSelected={updateSelected}
         handleFormView={handleFormView}
+        handlePlayTrack={handlePlayTrack}
         isFormOpen={isFormOpen}
       />
       {isFormOpen ? (
@@ -96,6 +103,7 @@ const App = () => {
           handleRemoveTrack={handleRemoveTrack}
         />
       )}
+      <NowPlaying currentTrack={currentTrack} />
     </>
   );
 };

@@ -1,5 +1,6 @@
 const TrackDetail = (props) => {
-  if (!props.selected) {
+  const { selected, handleFormView, handleRemoveTrack } = props;
+  if (!selected) {
     return (
       <div>
         <h1>No Details</h1>
@@ -8,12 +9,10 @@ const TrackDetail = (props) => {
   }
   return (
     <div>
-      <h1>{props.selected.title}</h1>
-      <h2>{props.selected.artist}</h2>
-      <button onClick={() => props.handleFormView(props.selected)}>Edit</button>
-      <button onClick={() => props.handleRemoveTrack(props.selected._id)}>
-        Delete
-      </button>
+      <h1>{selected.title}</h1>
+      <h2>{selected.artist}</h2>
+      <button onClick={() => handleFormView(selected)}>Edit</button>
+      <button onClick={() => handleRemoveTrack(selected._id)}>Delete</button>
     </div>
   );
 };
